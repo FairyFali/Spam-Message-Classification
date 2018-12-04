@@ -1,7 +1,6 @@
 #!usr/bin/env python  
 #-*- coding: utf-8 -*-  
-# liu13 2017.12.14
-# jackieliu.win
+# fairy wang 2018.12.4
 
 import sys  
 import os  
