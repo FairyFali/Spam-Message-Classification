@@ -23,14 +23,15 @@ class TfidfVectorizer(sklearn.feature_extraction.text.TfidfVectorizer):
         return analyzer
 
 gpus = sys.argv[1]
-text = [gpus];
+text = [gpus]
 
-test_classifiers = ['KNN', 'LR', 'RF', 'DT', 'GBDT', 'SVM', 'MultinomialNB','BernoulliNB']
+# test_classifiers = ['KNN', 'LR', 'RF', 'DT', 'GBDT', 'SVM', 'MultinomialNB','BernoulliNB']
+test_classifiers = ['KNN', 'LR', 'RF', 'DT', 'GBDT', 'MultinomialNB','BernoulliNB']
 
 for classifier in test_classifiers:
-    vec_tfidf = pickle.load(open("/Users/liu/Sites/Model/all_raw/vec_tfidf", 'rb')) #note absolute path
+    vec_tfidf = pickle.load(open("/Library/WebServer/Documents/Sites/Model/all_raw/vec_tfidf", 'rb')) #note absolute path
     data_tfidf = vec_tfidf.transform(text)
-    model = pickle.load(open('/Users/liu/Sites/Model/all_raw/model/'+classifier, 'rb'))
+    model = pickle.load(open('/Library/WebServer/Documents/Sites/Model/all_raw/model/'+classifier, 'rb'))
 
     predict = model.predict(data_tfidf)
     print(classifier +':')
