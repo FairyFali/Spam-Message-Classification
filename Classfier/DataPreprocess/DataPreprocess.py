@@ -81,7 +81,7 @@ if '__main__' == __name__:
     vec_tfidf = TfidfVectorizer()   # if df<2 discard it, max_df>0.8 discard as well
     data_tfidf = vec_tfidf.fit_transform(x)
     # write to the file, recall for demoAPI
-    #pickle.dump(vec_tfidf, open("vec_tfidf", 'wb'))
+    pickle.dump(vec_tfidf, open("vec_tfidf", 'wb'))
 
     if data_type == 'raw':
         io.mmwrite('raw50000/raw', data_tfidf)

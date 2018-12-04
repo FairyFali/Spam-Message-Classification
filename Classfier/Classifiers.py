@@ -58,7 +58,8 @@ def gradient_boosting_classifier(train_x, train_y):
     model.fit(train_x, train_y)  
     return model  
   
-# SVM Classifier using cross validation  
+# SVM Classifier using cross validation
+# 新版.20 sklearn 的sklearn.grid_search.GridsearchCV类已经被移除了，只有通过sklearn.model_selection调用GridsearchCV
 def svm_cross_validation(train_x, train_y):  
     from sklearn.grid_search import GridSearchCV  
     from sklearn.svm import SVC  
@@ -107,10 +108,11 @@ if '__main__' == __name__:
     train_x, test_x, train_y, test_y = select_data(x, y, takeup)
 
     
-    #test_classifiers = ['KNN', 'LR', 'RF', 'DT', 'GBDT', 'SVM', 'MultinomialNB','BernoulliNB']
+    #test_classifiers = ['KNN', 'LR', 'RF', 'DT', 'SVM', 'MultinomialNB','BernoulliNB']
     #test_classifiers = ['SVM']
-    test_classifiers = ['MultinomialNB','BernoulliNB',]
-    classifiers = { 
+    #test_classifiers = ['MultinomialNB','BernoulliNB',]
+    test_classifiers = ['GBDT', 'MultinomialNB','BernoulliNB']
+    classifiers = {
                     'KNN':knn_classifier,  
                     'LR':logistic_regression_classifier,  
                     'RF':random_forest_classifier,  
