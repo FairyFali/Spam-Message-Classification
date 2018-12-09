@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Daxiu Huang">
+    <meta name="time" content="2017/9/15 9:51">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/demo.css" rel="stylesheet" media="all" />
+</head>
+<body>
+
+<div class="page-header">
+    <h3 class="text-center" style="margin:20px;">textarea 显示限制输入字符</h3>
+</div>
+
+<form id="testForm" name="cf" class="form-horizontal container" style="margin: 0 auto;" target="_blank" onSubmit=javascript:chkfs() method="post" >
+    <div class="form-group row">
+        <label class="col-md-3 control-label">请输入您的短信内容(不超过200字符)</label>
+        <div class="col-md-6">
+            <textarea class='form-control' onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' rows='5' name="pmessage"  autocomplete="off" ></textarea>
+            <div class='text-right'>
+                <em style='color:red'>200</em>/<span>200</span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item active">您可以使用以下测试短信：</li>
+                <li class="list-group-item">.x月xx日推出凭证式国债x年期x.xx.xx%，x年期x.xx%到期一次还本付息。真情邮政，为您竭诚服务！  咨询电话xxxx-xx</li>
+                <li class="list-group-item">这两个月发烧两次…冤孽……</li>
+                <li class="list-group-item">凌晨快清晨了还在医院里我真的不想病倒</li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3"></div>
+        <div class="col-md-offset-3 col-md-6">
+            <button type="submit" class="btn btn-info" id="testConfirm">确认提交</button>
+        </div>
+    </div>
+</form>
+
+<div id="notice">
+    <div class="text-center">支持多种分类器：KNN, LR, RF, DT, GBDT, SVM, MultinomialNB, BernoulliNB</div>
+    <p align="center">
+        Powered by <a href="http://fairyfali.github.io" style="color: blue;">fairy Wang</a>
+    </p>
+</div>
+
+<footer class="footer navbar-fixed-bottom" style="margin-top: 140px;height: 54px; width: 100%; background-color: #000; position: fixed; bottom: 0;">
+    <div class="container" style="text-align: right; color: #fff; line-height: 44px; font-size: 14px; font-family: 黑体;">
+        中国科学院大学 网络数据挖掘课程
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+    function chkfs(){ 
+        var frm = document.forms['cf'];  
+        frm.action="result.php";
+        return true;  
+    }
+    //显示限制输入字符method
+    function textAreaChange(obj){
+        var $this = $(obj);
+        var count_total = $this.next().children('span').text();
+        var count_input = $this.next().children('em');
+        var area_val = $this.val();
+        if(area_val.len()>count_total){
+            area_val = autoAddEllipsis(area_val,count_total);//根据字节截图内容
+            $this.val(area_val);
+            count_input.text(0);//显示可输入数
+        }else{
+            count_input.text(count_total - area_val.len());//显示可输入数
+        }
+    }
+    //得到字符串的字节长度
+    String.prototype.len = function(){
+        return this.replace(/[^\x00-\xff]/g, "xx").length;
+    };
+    /*
+     * 处理过长的字符串，截取并添加省略号
+     * 注：半角长度为1，全角长度为2
+     * pStr:字符串
+     * pLen:截取长度
+     * return: 截取后的字符串
+     */
+    function autoAddEllipsis(pStr, pLen) {
+        var _ret = cutString(pStr, pLen);
+        var _cutFlag = _ret.cutflag;
+        var _cutStringn = _ret.cutstring;
+        return _cutStringn;
+    }
+    /*
+     * 取得指定长度的字符串
+     * 注：半角长度为1，全角长度为2
+     * pStr:字符串
+     * pLen:截取长度
+     * return: 截取后的字符串
+     */
+    function cutString(pStr, pLen) {
+        // 原字符串长度
+        var _strLen = pStr.length;
+        var _tmpCode;
+        var _cutString;
+        // 默认情况下，返回的字符串是原字符串的一部分
+        var _cutFlag = "1";
+        var _lenCount = 0;
+        var _ret = false;
+        if (_strLen <= pLen/2){_cutString = pStr;_ret = true;}
+        if (!_ret){
+            for (var i = 0; i < _strLen ; i++ ){
+                if (isFull(pStr.charAt(i))){_lenCount += 2;}
+                else {_lenCount += 1;}
+                if (_lenCount > pLen){_cutString = pStr.substring(0, i);_ret = true;break;}
+                else if(_lenCount == pLen){_cutString = pStr.substring(0, i + 1);_ret = true;break;}
+            }
+        }
+        if (!_ret){_cutString = pStr;_ret = true;}
+        if (_cutString.length == _strLen){_cutFlag = "0";}
+        return {"cutstring":_cutString, "cutflag":_cutFlag};
+    }
+    /*
+     * 判断是否为全角
+     *
+     * pChar:长度为1的字符串
+     * return: true:全角
+     *         false:半角
+     */
+    function isFull (pChar){
+        if((pChar.charCodeAt(0) > 128)){return true;}
+        else{return false;}
+    }
+</script>
+</body>
+</html>
