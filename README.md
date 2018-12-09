@@ -1,7 +1,7 @@
 # SpamMessage
 实现一个垃圾短信识别系统，在给定的数据集上验证效果.
-![image](img/3.png)
-![image](img/4.png)
+![image](img/5.png)
+![image](img/6.png)
 
 ## 短信数据
 - 标签域: 1表示垃圾短信/0表示正常短信
