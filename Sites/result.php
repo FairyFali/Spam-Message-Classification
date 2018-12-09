@@ -89,9 +89,9 @@ $nomessage = "<font size=4 color=red>请输入短信内容!</font>";           /
             <input id="btn" type="button" value="关闭此页" class="btn btn-info btn-lg btn-block" onClick="javascript:window.close()">
         </div>
         <div id="notice">
-            支持多种分类器：KNN, LR, RF, DT, GBDT, SVM, MultinomialNB, BernoulliNB
+            显示多种分类器的结果，结果可根据多种分类器的预测准确率或者投票结果产生
             <p align="center">
-                Powered by <a style="color: blue;" href="http://fairyfali.github.io">fairy Wang</a>
+                技术支持<a style="color: blue;" href="http://fairyfali.github.io">fairy Wang</a>
             </p>
         </div>
         </center>
