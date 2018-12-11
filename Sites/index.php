@@ -109,7 +109,7 @@
                 </div>
             </li> -->
             <li class="logoTop">
-                <a href="#">jQuery textarea文本框输入文字限制提示代码</a>            
+                <a href="#">jQuery textarea文本框输入文字限制(建议您使用谷歌浏览器)</a>            
                 <script type="text/javascript">
                     jQuery('#output').qrcode({width:150,height: 150,text: window.location.href});
                 </script>

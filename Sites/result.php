@@ -60,31 +60,58 @@ $nomessage = "<font size=4 color=red>请输入短信内容!</font>";           /
     </div>
 
     <div id="container" class="container text-center">
-        <center>
-        <!-- <div id="title" class="page-header">
-            <h1>垃圾短信识别</h1>
-        </div>   -->
-        <?php
-        error_reporting(0);  //禁用错误报告
-        #var_dump($_POST);
-        if($_POST[pmessage]=="") echo $nomessage; 
-        else{
-            # $output = shell_exec('python2 /Library/WebServer/Documents/Sites/Model/demoAPI.py'.' '.$_POST[pmessage]);
-            $output = shell_exec('/Users/wangfali/miniconda2/bin/python2 /Library/WebServer/Documents/Sites/Model/demoAPI.py'.' '.$_POST[pmessage]);
-            echo"<font color=#246183>各分类器检测结果如下</font> </br></br></br>";
-            #返回结果形如：LR:[u'1'],RF:[u'1']
-            $array = explode(',', $output);
-            echo"<table class='table table-striped' id='table1'>";
-            for ($i=0;$i<count($array)-1;$i++) {
-                $result = explode(':', $array[$i]);
-                echo"<tr><td class='text-right'><font>$result[0]</font></td>
-                         <td>$result[1]</td></tr>";
+        <div class="row"> 
+            <center class="col-md-6 col-md-offset-2">
+            <!-- <div id="title" class="page-header">
+                <h1>垃圾短信识别</h1>
+            </div>   -->
+            <?php
+            error_reporting(0);  //禁用错误报告
+            #var_dump($_POST);
+            $array1 = array(1, 0.9774, 0.9947, 0.9378, 0.9886, 0.9808, 0.8372, 0.9359);
+            $count1 = 0;
+            if($_POST[pmessage]=="") echo $nomessage; 
+            else{
+                # $output = shell_exec('python2 /Library/WebServer/Documents/Sites/Model/demoAPI.py'.' '.$_POST[pmessage]);
+                $output = shell_exec('/usr/bin/python /var/www/html/Sites/Model/demoAPI.py'.' '.$_POST[pmessage]);
+                echo"<font color=#246183>各分类器检测结果如下</font> </br></br></br>";
+                #返回结果形如：LR:[u'1'],RF:[u'1']
+                $array = explode(',', $output);
+                echo"<table class='table table-striped' id='table1' style='width:80%;'>";
+                for ($i=0;$i<count($array)-1;$i++) {
+                    $result = explode(':', $array[$i]);
+                    echo"<tr><td class='text-right'><font>$result[0]</font></td>
+                             <td>$result[1]</td></tr>";
+                    if($result[i] == "True(垃圾短信)")
+                        $count1 = $count1+$array1[i];
+                }
+                echo "<tr>";
+                    echo "<td class='text-right'>本系统boosting各种分类器的判定结果</td>";
+                    if($count1 > 3.8262)
+                        echo "<td style='color:#246183;'>垃圾短信</td>";
+                    else
+                        echo "<td style='color:#246183;'>非垃圾短信</td>";
+                echo "</tr>";
+                echo"</table>";
             }
-            echo"</table>";
-        }
-        
-        ?>
+            
+            ?>
 
+            </center>
+            <div class="col-md-4" style="margin-top: 45px;">
+                <ul class="list-group">
+                    <li class="list-group-item">KNN：K近邻算法</li>
+                    <li class="list-group-item">LR: 逻辑回归</li>
+                    <li class="list-group-item">RF: 随机森林</li>
+                    <li class="list-group-item">DT: 决策树</li>
+                    <li class="list-group-item">GBDT: 梯度提升决策树</li>
+                    <li class="list-group-item">MultinomialNB: 多项式分布朴素贝叶斯</li>
+                    <li class="list-group-item">BernoulliNB: 伯努利分布朴素贝叶斯</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <center>
         <div id="closewindos">
             <input id="btn" type="button" value="关闭此页" class="btn btn-info btn-lg btn-block" onClick="javascript:window.close()">
         </div>
@@ -94,8 +121,7 @@ $nomessage = "<font size=4 color=red>请输入短信内容!</font>";           /
                 技术支持<a style="color: blue;" href="http://fairyfali.github.io">fairy Wang</a>
             </p>
         </div>
-        </center>
-    </div>
+    </center>
     <footer class="navbar navbar-default navbar-fixed-bottom" style="margin-top: 100px;height: 54px; width: 100%; background-color: #000; position: fixed; bottom: 0;">
         <div class="container text-right" style="text-align: right; color: #fff; line-height: 44px; font-size: 14px; font-family: 黑体; padding-left: 900px;">
             中国科学院大学 网络数据挖掘课程

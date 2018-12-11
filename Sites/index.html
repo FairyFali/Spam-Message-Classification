@@ -13,19 +13,19 @@
 <body>
 
 <div class="page-header">
-    <h3 class="text-center" style="margin:20px;">textarea 显示限制输入字符</h3>
+    <h3 class="text-center" style="margin:20px;">请输入您的短信内容(不超过200字符)</h3>
 </div>
 
 <form id="testForm" name="cf" class="form-horizontal container" style="margin: 0 auto;" target="_blank" onSubmit=javascript:chkfs() method="post" >
     <div class="form-group row">
-        <label class="col-md-3 control-label">请输入您的短信内容(不超过200字符)</label>
+        <label class="col-md-1 control-label"></label>
         <div class="col-md-6">
-            <textarea class='form-control' onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' rows='5' name="pmessage"  autocomplete="off" ></textarea>
+            <textarea class='form-control' onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' rows='5' name="pmessage"  autocomplete="off" style="margin-top: 40px;"></textarea>
             <div class='text-right'>
                 <em style='color:red'>200</em>/<span>200</span>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <ul class="list-group">
                 <li class="list-group-item active">您可以使用以下测试短信：</li>
                 <li class="list-group-item">.x月xx日推出凭证式国债x年期x.xx.xx%，x年期x.xx%到期一次还本付息。真情邮政，为您竭诚服务！  咨询电话xxxx-xx</li>
@@ -35,14 +35,15 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-md-3"></div>
+        <div class="col-md-1"></div>
         <div class="col-md-offset-3 col-md-6">
             <button type="submit" class="btn btn-info" id="testConfirm">确认提交</button>
+            <span style="color: red;">(判断结果可能较慢，请您耐心等待5~10秒)</span>
         </div>
     </div>
 </form>
 
-<div id="notice">
+<div id="notice" style="padding-top: 50px;">
     <div class="text-center">显示多种分类器的结果，结果可根据多种分类器的预测准确率或者投票结果产生</div>
     <p align="center">
         技术支持<a href="http://fairyfali.github.io" style="color: blue;">fairy Wang</a>

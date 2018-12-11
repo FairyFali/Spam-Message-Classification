@@ -1,7 +1,5 @@
 #!usr/bin/env python  
 #-*- coding: utf-8 -*-  
-# liu13 2017.12.15
-# jackieliu.win
 
 import jieba
 import jieba.posseg as pseg
@@ -29,9 +27,9 @@ text = [gpus]
 test_classifiers = ['KNN', 'LR', 'RF', 'DT', 'GBDT', 'MultinomialNB','BernoulliNB']
 
 for classifier in test_classifiers:
-    vec_tfidf = pickle.load(open("/Library/WebServer/Documents/Sites/Model/all_raw/vec_tfidf", 'rb')) #note absolute path
+    vec_tfidf = pickle.load(open("/var/www/html/Sites/Model/all_raw/vec_tfidf", 'rb')) #note absolute path
     data_tfidf = vec_tfidf.transform(text)
-    model = pickle.load(open('/Library/WebServer/Documents/Sites/Model/all_raw/model/'+classifier, 'rb'))
+    model = pickle.load(open('/var/www/html/Sites/Model/all_raw/model/'+classifier, 'rb'))
 
     predict = model.predict(data_tfidf)
     print(classifier +':')
